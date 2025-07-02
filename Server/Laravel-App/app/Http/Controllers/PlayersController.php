@@ -68,4 +68,25 @@ class PlayersController extends Controller
 
         return response()->json($data, 201);
     }
+
+    public function show($id)
+    {
+        $player = Players::find($id);
+
+        $data = [
+            'message' => 'Player retrieved successfully',
+            'status' => 200,
+            'player' => $player
+        ];
+
+        if (!$player) {
+            $data = [
+                'message' => 'Player not found',
+                'status' => 404
+            ];
+        }
+
+        
+        return response()->json($data);
+    }
 }
