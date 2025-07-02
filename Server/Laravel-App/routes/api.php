@@ -15,16 +15,16 @@ Route::get('/prueba', function () {
 Route::prefix('/players')->group(function () {
     Route::get('/', [PlayersController::class, 'index']);
     Route::post('/', [PlayersController::class, 'store']);
-    Route::get('{id}', [PlayersController::class, 'show']);
-    Route::put('{id}', [PlayersController::class, 'update']);
-    Route::delete('{id}', [PlayersController::class, 'destroy']);
+    Route::get('/{id}', [PlayersController::class, 'show']);
+    Route::put('/{id}', [PlayersController::class, 'update']);
+    Route::delete('/{id}', [PlayersController::class, 'destroy']);
 });
 Route::prefix('/tournaments')->group(function () {
     Route::get('/', [TournamentController::class, 'index']);
     Route::post('/', [TournamentController::class, 'store']);
-    Route::get('{id}', [TournamentController::class, 'show']);
-    Route::put('{id}', [TournamentController::class, 'update']);
-    Route::delete('{id}', [TournamentController::class, 'destroy']);
+    Route::get('/{id}', [TournamentController::class, 'show']);
+    Route::put('/{id}', [TournamentController::class, 'update']);
+    Route::delete('/{id}', [TournamentController::class, 'destroy']);
 });
 Route::prefix('/registrations')->group(function () {
     Route::post('/', [RegistrationController::class, 'store']); // Inscripción
