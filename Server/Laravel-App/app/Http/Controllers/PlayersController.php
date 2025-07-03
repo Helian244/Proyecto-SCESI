@@ -127,4 +127,26 @@ class PlayersController extends Controller
 
         return response()->json($data);
     }
+
+    public function destroy($id)
+    {
+        $player = Players::find($id);
+
+        if (!$player) {
+            $data = [
+                'message' => 'Player not found',
+                'status' => 404
+            ];
+            return response()->json($data, 404);
+        }
+
+        $player->delete();
+
+        $data = [
+            'message' => 'Player deleted successfully',
+            'status' => 200
+        ];
+
+        return response()->json($data);
+    }
 }
