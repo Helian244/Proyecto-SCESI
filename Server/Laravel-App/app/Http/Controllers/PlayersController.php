@@ -89,4 +89,42 @@ class PlayersController extends Controller
         
         return response()->json($data);
     }
+
+    public function update(Request $request, $id)
+    {
+        $player = Players::find($id);
+
+        if (!$player) {
+            $data = [
+                'message' => 'Player not found',
+                'status' => 404
+            ];
+            return response()->json($data, 404);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'sometimes|required|string|max:255',
+            'email' => 'sometimes|required|email|unique:players,email,' . $id,
+            'rating' => 'sometimes|nullable|integer|min:0'
+        ]);
+
+        if ($validator->fails()) {
+            $data = [
+                'message' => 'Validation failed',
+                'status' => 422,
+                'errors' => $validator->errors()
+            ];
+            return response()->json($data, 422);
+        }
+
+        $player->update($request->only('name', 'email', 'rating'));
+
+        $data = [
+            'message' => 'Player updated successfully',
+            'status' => 200,
+            'player' => $player
+        ];
+
+        return response()->json($data);
+    }
 }
