@@ -19,6 +19,7 @@ Route::prefix('/players')->group(function () {
     Route::put('/{id}', [PlayersController::class, 'update']);
     Route::delete('/{id}', [PlayersController::class, 'destroy']);
 });
+
 Route::prefix('/tournaments')->group(function () {
     Route::get('/', [TournamentController::class, 'index']);
     Route::post('/', [TournamentController::class, 'store']);
@@ -26,12 +27,13 @@ Route::prefix('/tournaments')->group(function () {
     Route::put('/{id}', [TournamentController::class, 'update']);
     Route::delete('/{id}', [TournamentController::class, 'destroy']);
 });
+
 Route::prefix('/registrations')->group(function () {
     Route::post('/', [RegistrationController::class, 'store']); // Inscripción
     Route::get('/tournament/{id}', [RegistrationController::class, 'getByTournament']);
 });
 
-Route::prefix('/matches')->group(function () {
+Route::prefix('/contests')->group(function () {
     Route::get('/tournament/{id}', [MatchController::class, 'getByTournament']);
     Route::post('/', [MatchController::class, 'store']);
     Route::put('{id}', [MatchController::class, 'updateScore']);
