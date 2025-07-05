@@ -8,6 +8,10 @@ class Player extends Model
 {
     protected $fillable = ['name', 'email', 'rating'];
 
+    protected $attributes = [
+        'rating' => 1000,
+    ];
+
     public function registrations()
     {
         return $this->hasMany(Registration::class);
