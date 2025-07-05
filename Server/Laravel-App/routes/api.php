@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PlayersController;
+use App\Http\Controllers\PlayerController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -13,11 +13,11 @@ Route::get('/prueba', function () {
 });
 
 Route::prefix('/players')->group(function () {
-    Route::get('/', [PlayersController::class, 'index']);
-    Route::post('/', [PlayersController::class, 'store']);
-    Route::get('/{id}', [PlayersController::class, 'show']);
-    Route::put('/{id}', [PlayersController::class, 'update']);
-    Route::delete('/{id}', [PlayersController::class, 'destroy']);
+    Route::get('/', [PlayerController::class, 'index']);
+    Route::post('/', [PlayerController::class, 'store']);
+    Route::get('/{id}', [PlayerController::class, 'show']);
+    Route::put('/{id}', [PlayerController::class, 'update']);
+    Route::delete('/{id}', [PlayerController::class, 'destroy']);
 });
 
 Route::prefix('/tournaments')->group(function () {
