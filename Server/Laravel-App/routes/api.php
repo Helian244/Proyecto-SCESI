@@ -14,6 +14,7 @@ Route::get('/prueba', function () {
 
 Route::prefix('/players')->group(function () {
     Route::get('/', [PlayerController::class, 'index']);
+    Route::get('/filter/', [PlayerController::class, 'filter']);
     Route::post('/', [PlayerController::class, 'store']);
     Route::post('/bulk', [PlayerController::class, 'storeMany']);
     Route::get('/{id}', [PlayerController::class, 'show']);

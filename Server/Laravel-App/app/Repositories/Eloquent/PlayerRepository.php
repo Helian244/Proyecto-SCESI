@@ -11,6 +11,31 @@ class PlayerRepository implements PlayerRepositoryInterface
         return Player::all();
     }
 
+    public function filter($request) 
+    {
+        $query = Player::query();
+
+        if ($request->has('name')) {
+            $query->where('name', 'like', '%' . $request->name . '%');
+        }
+
+        if ($request->has('rating_min')) {
+            $query->where('rating', '>=', $request->rating_min);
+        }
+
+        if ($request->has('rating_max')) {
+            $query->where('rating', '<=', $request->rating_max);
+        }
+
+        if ($request->has('sort_by')) {
+            $sortBy = $request->get('sort_by', 'name');
+            $sortDir = $request->get('sort_dir', 'asc');
+            $query->orderBy($sortBy, $sortDir);
+        }
+
+        return $query;
+    }
+
     public function find($id) {
         return Player::find($id);
     }

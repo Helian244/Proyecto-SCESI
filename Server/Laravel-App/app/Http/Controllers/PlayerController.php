@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Players;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\FilterPlayerRequest;
 use App\Http\Requests\StorePlayerRequest;
 use App\Http\Requests\StoreManyPlayersRequest;
 use App\Http\Requests\UpdatePlayerRequest;
@@ -35,6 +36,18 @@ class PlayerController extends Controller
         return response()->json([
             'message' => 'Successfully retrieved players',
             'data' => $this->repo->all()
+        ]);
+    }
+
+    public function filter(FilterPlayerRequest $request)
+    {
+        $query = $this->repo->filter($request);
+
+        $players = $query->paginate(6);
+
+        return response()->json([
+            'message' => 'Filtered players successfully',
+            'data' => $players
         ]);
     }
 
