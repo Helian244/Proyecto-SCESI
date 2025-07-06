@@ -20,8 +20,17 @@ class PlayerController extends Controller
         $this->repo = $repo;
     }
 
-    public function index()
+    public function index(Request $request)
     {
+        $id = $request->query('id');
+        if ($id) {
+            $player = $this->repo->find($id);
+            if (!$player) {
+                return response()->json(['message' => 'Player not found'], 404);
+            }   
+            return response()->json(['player' => $player]);
+        }
+
         return response()->json([
             'message' => 'Successfully retrieved players',
             'data' => $this->repo->all()
