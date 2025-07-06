@@ -8,6 +8,7 @@ use App\Models\Players;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\StorePlayerRequest;
+use App\Http\Requests\StoreManyPlayersRequest;
 use App\Http\Requests\UpdatePlayerRequest;
 use App\Repositories\Contracts\PlayerRepositoryInterface;
 
@@ -42,6 +43,20 @@ class PlayerController extends Controller
         $player = $this->repo->create($request->validated());
         return response()->json([
             'player' => $player,
+        ], 201);
+    }
+
+    public function storeMany(StoreManyPlayersRequest $request)
+    {
+        $created = [];
+
+        foreach ($request->validated() as $playerData) {
+            $created[] = $this->repo->create($playerData);
+        }
+
+        return response()->json([
+            'message' => 'Multiple players created successfully',
+            'players' => $created
         ], 201);
     }
 
