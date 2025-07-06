@@ -33,13 +33,17 @@ Route::middleware('auth:sanctum')->group( function () {
     });
 });
 
-Route::prefix('/tournaments')->group(function () {
-    Route::get('/', [TournamentController::class, 'index']);
-    Route::post('/', [TournamentController::class, 'store']);
-    Route::get('/{id}', [TournamentController::class, 'show']);
-    Route::put('/{id}', [TournamentController::class, 'update']);
-    Route::delete('/{id}', [TournamentController::class, 'destroy']);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::prefix('/tournaments')->group(function () {
+        Route::get('/', [TournamentController::class, 'index']);
+        Route::post('/', [TournamentController::class, 'store']);
+        Route::get('/{id}', [TournamentController::class, 'show']);
+        Route::put('/{id}', [TournamentController::class, 'update']);
+        Route::delete('/{id}', [TournamentController::class, 'destroy']);
+    });
 });
+
+
 
 Route::prefix('/registrations')->group(function () {
     Route::post('/', [RegistrationController::class, 'store']); // Inscripción
